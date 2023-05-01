@@ -1,10 +1,13 @@
 // import logo from './logo.svg';
+// import react and usestate (allows not to write React.useState)
+import React, { useState } from 'react';
 import '../index.css';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForms';
 import ImagePopup from './ImagePopup';
+import { api } from '../utils/Api';
 
 
 
@@ -32,25 +35,11 @@ function App() {
     setIsEditAvatarPopupOpen(true)
   };
 
-
-  // function handleEditProfileClick() {
-  //   const popupEditProfile = document.querySelector('.popup_edit')
-  //   popupEditProfile.classList.add('popup_opened')
-  // }
-
-  // function handleAddPlaceClick() {
-  //   const popupAddCards = document.querySelector('.popup_cards');
-  //   popupAddCards.classList.add('popup_opened');
-  // }
-
-  // function handleEditAvatarClick() {
-  //   const popupEditAvatar = document.querySelector('.popup_upload-avatar');
-  //   popupEditAvatar.classList.add('popup_opened');
-  //   console.log('что происходит')
-  // }
-
-
-
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+  }
 
   return (
 
@@ -75,6 +64,7 @@ function App() {
           buttonText='Сохранить'
           formName='about'
           isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
         >
           <input
             type="text" name="name" id="name" className="popup__input popup__input_type_name" required minLength="2"
@@ -98,6 +88,7 @@ function App() {
           buttonText='Создать'
           formName='cards'
           isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
         >
           <input type="text" name="place" id="place" className="popup__input popup__input_type-place"
             placeholder="Название" required minLength="2" maxLength="30" />
@@ -117,6 +108,7 @@ function App() {
           name='popup_confirm-delete'
           formName='confirm'
           buttonText='Да'
+          onClose={closeAllPopups}
         >
 
         </PopupWithForm>
@@ -131,6 +123,7 @@ function App() {
           uploadAvatarClass='popup__container_upload-avatar'
           buttonCloseAvatar='popup__button-close_upload-avatar'
           isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
         >
           <input type="url" name="avatar" id="avatar" className="popup__input popup__input_type-link"
             placeholder="Ссылка на картинку" required />
