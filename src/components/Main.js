@@ -29,4 +29,4 @@ function Main({ onEditProfile,
     )
 };
 
-export default Main;
+export default Main; 

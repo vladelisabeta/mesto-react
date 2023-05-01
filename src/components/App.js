@@ -72,7 +72,7 @@ const [selectedCard, setSelectedCard] = useState(false);
 
   console.log(cards)
 
-
+console.log(Card)
   // конец апимракобесия 
 
   return (
@@ -174,6 +174,7 @@ const [selectedCard, setSelectedCard] = useState(false);
         <Card
           cards={cards}
         ></Card>
+        
         <Footer />
       </div>
     </>
