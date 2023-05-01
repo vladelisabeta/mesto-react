@@ -190,3 +190,21 @@ function App() {
 export default App;
 
 
+
+//  functions from main 
+function handleEditAvatarClick() {
+  const popupEditAvatar = document.querySelector('.popup_upload-avatar');
+  popupEditAvatar.classList.add('popup_opened');
+  console.log('что происходит')
+}
+
+
+function handleEditProfileClick() {
+  const popupEditProfile = document.querySelector('.popup_edit')
+  popupEditProfile.classList.add('popup_opened')
+}
+
+function handleAddPlaceClick() {
+  const popupAddCards = document.querySelector('.popup_cards');
+  popupAddCards.classList.add('popup_opened');
+}

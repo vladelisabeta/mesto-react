@@ -8,9 +8,15 @@ function PopupWithForm({
     children,
     uploadAvatarClass,
     buttonCloseAvatar,
+    isOpen,
 }) {
+
+
+// проверяю имя попапа и устанавливаю открытие
+    const popupStatusClassName = `popup ${name} ${isOpen ? 'popup_opened' : ''}`
+
     return (
-        <div className={`popup ${name}`}>
+        <div className={popupStatusClassName}>
             <div className="popup__box">
                 <button className={`popup__button-close ${buttonCloseAvatar}`} type="button"></button>
                 <div className={`popup__container ${uploadAvatarClass}`}>

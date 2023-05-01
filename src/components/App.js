@@ -8,38 +8,64 @@ import ImagePopup from './ImagePopup';
 
 
 
-
-
-
-
-
-
-
 function App() {
 
-  function handleEditAvatarClick() {
-    const popupEditAvatar = document.querySelector('.popup_upload-avatar');
-    popupEditAvatar.classList.add('popup_opened');
-    console.log('что происходит')
-  }
+  //  где то здесь должны быть хуки за видимые состояния попапов. а потом они меняются (???????????)
+  // хуки стейта
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
 
   function handleEditProfileClick() {
-    const popupEditProfile = document.querySelector('.popup_edit')
-    popupEditProfile.classList.add('popup_opened')
-  }
+    setIsEditProfilePopupOpen(true)
+  };
 
   function handleAddPlaceClick() {
-    const popupAddCards = document.querySelector('.popup_cards');
-    popupAddCards.classList.add('popup_opened');
-  }
+    setIsAddPlacePopupOpen(true)
+  };
+
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true)
+  };
+
+
+  // function handleEditProfileClick() {
+  //   const popupEditProfile = document.querySelector('.popup_edit')
+  //   popupEditProfile.classList.add('popup_opened')
+  // }
+
+  // function handleAddPlaceClick() {
+  //   const popupAddCards = document.querySelector('.popup_cards');
+  //   popupAddCards.classList.add('popup_opened');
+  // }
+
+  // function handleEditAvatarClick() {
+  //   const popupEditAvatar = document.querySelector('.popup_upload-avatar');
+  //   popupEditAvatar.classList.add('popup_opened');
+  //   console.log('что происходит')
+  // }
+
+
+
 
   return (
 
     <>
       <div className="page">
         <Header />
-        <Main />
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+        >
+          {/* сюда надо передать функции */}
+
+
+        </Main>
         <Footer />
         <ImagePopup />
         {/* ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ */}
@@ -48,6 +74,7 @@ function App() {
           name='popup_edit'
           buttonText='Сохранить'
           formName='about'
+          isOpen={isEditProfilePopupOpen}
         >
           <input
             type="text" name="name" id="name" className="popup__input popup__input_type_name" required minLength="2"
@@ -70,6 +97,7 @@ function App() {
           title='Новое место'
           buttonText='Создать'
           formName='cards'
+          isOpen={isAddPlacePopupOpen}
         >
           <input type="text" name="place" id="place" className="popup__input popup__input_type-place"
             placeholder="Название" required minLength="2" maxLength="30" />
@@ -102,6 +130,7 @@ function App() {
           buttonText='Сохранить'
           uploadAvatarClass='popup__container_upload-avatar'
           buttonCloseAvatar='popup__button-close_upload-avatar'
+          isOpen={isEditAvatarPopupOpen}
         >
           <input type="url" name="avatar" id="avatar" className="popup__input popup__input_type-link"
             placeholder="Ссылка на картинку" required />
