@@ -14,6 +14,13 @@ import Card from './Card';
 
 function App() {
 
+// здесь опен попап кард
+
+const [selectedCard, setSelectedCard] = useState(false);
+
+
+
+
   //  где то здесь должны быть хуки за видимые состояния попапов. а потом они меняются (???????????)
   // хуки стейта
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -80,6 +87,8 @@ function App() {
           userName={userName}
           userDescription={userDescription}
           userAvatar={userAvatar}
+          cards={cards}
+          card={Card}
         >
           {/* сюда надо передать функции */}
 

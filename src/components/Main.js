@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Children } from "react";
 
 function Main({ onEditProfile,
     onAddPlace,
     onEditAvatar,
     userName,
     userDescription,
-    userAvatar
+    userAvatar,
+    cards,
+    card
 }) {
 
     return (<main className="content">
@@ -21,7 +23,7 @@ function Main({ onEditProfile,
         </section>
 
         <section className="place-grid">
-
+            {card}
         </section>
     </main>
     )
