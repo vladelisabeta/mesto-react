@@ -14,9 +14,9 @@ import Card from './Card';
 
 function App() {
 
-// здесь опен попап кард
+  // здесь опен попап кард
 
-const [selectedCard, setSelectedCard] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
 
 
@@ -72,7 +72,7 @@ const [selectedCard, setSelectedCard] = useState(false);
 
   console.log(cards)
 
-console.log(Card)
+  console.log(Card)
   // конец апимракобесия 
 
   return (
@@ -171,10 +171,6 @@ console.log(Card)
 
         </PopupWithForm>
 
-        <Card
-          card={card}
-        ></Card>
-        
         <Footer />
       </div>
     </>

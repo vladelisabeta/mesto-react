@@ -1,4 +1,5 @@
 import React, { Children } from "react";
+import Card from "./Card";
 
 function Main({ onEditProfile,
     onAddPlace,
@@ -24,7 +25,15 @@ function Main({ onEditProfile,
 
         <section className="place-grid">
             {cards.map(card => {
-                return (card)
+                return (
+                    <Card
+                        card={card}
+                        key={card._id}
+                    >
+
+                    </Card>
+
+                )
             })}
 
         </section>
