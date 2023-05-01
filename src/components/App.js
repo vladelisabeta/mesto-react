@@ -4,8 +4,36 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForms';
+import ImagePopup from './ImagePopup';
+
+
+
+
+
+
+
+
+
 
 function App() {
+
+  function handleEditAvatarClick() {
+    const popupEditAvatar = document.querySelector('.popup_upload-avatar');
+    popupEditAvatar.classList.add('popup_opened');
+    console.log('что происходит')
+  }
+
+
+  function handleEditProfileClick() {
+    const popupEditProfile = document.querySelector('.popup_edit')
+    popupEditProfile.classList.add('popup_opened')
+  }
+
+  function handleAddPlaceClick() {
+    const popupAddCards = document.querySelector('.popup_cards');
+    popupAddCards.classList.add('popup_opened');
+  }
+
   return (
 
     <>
@@ -13,7 +41,7 @@ function App() {
         <Header />
         <Main />
         <Footer />
-
+        <ImagePopup />
         {/* ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ */}
         <PopupWithForm
           title='Редактировать профиль'
@@ -72,6 +100,8 @@ function App() {
           name='popup_upload-avatar'
           formName='upload'
           buttonText='Сохранить'
+          uploadAvatarClass='popup__container_upload-avatar'
+          buttonCloseAvatar='popup__button-close_upload-avatar'
         >
           <input type="url" name="avatar" id="avatar" className="popup__input popup__input_type-link"
             placeholder="Ссылка на картинку" required />
@@ -95,17 +125,6 @@ function App() {
             </div>
           </div>
         </template>
-
-
-        {/* WHITE CROW */}
-        <div className="popup popup_image">
-          <div className="popup__image-opened">
-            <button type="button" className="popup__button-close popup__button-close_image"></button>
-            <span className="popup__image-text"></span>
-            <img className="popup__image" src="#" alt="" />
-          </div>
-
-        </div>
 
 
       </div>
