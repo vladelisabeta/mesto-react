@@ -23,7 +23,10 @@ function Main({ onEditProfile,
         </section>
 
         <section className="place-grid">
-            {card}
+            {cards.map(card => {
+                return (card)
+            })}
+
         </section>
     </main>
     )

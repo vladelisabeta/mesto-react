@@ -172,7 +172,7 @@ console.log(Card)
         </PopupWithForm>
 
         <Card
-          cards={cards}
+          card={card}
         ></Card>
         
         <Footer />
