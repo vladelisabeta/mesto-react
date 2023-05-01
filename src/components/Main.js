@@ -10,13 +10,13 @@ function Main({ onEditProfile,
 
     return (<main className="content">
         <section className="profile">
-            <div className="profile__image-container" onClick={onEditAvatar}><img src="<%=require('./images/kusto.jpg')%>" alt="Аватар профиля"
+            <div className="profile__image-container" onClick={onEditAvatar}><img src={userAvatar} alt="Аватар профиля"
                 className="profile__avatar" /></div>
             <div className="profile__edit-container">
-                <h1 className="profile__title">Жак-Ив Кусто</h1>
+                <h1 className="profile__title">{userName}</h1>
                 <button className="profile__edit-button" type="button" onClick={onEditProfile}></button>
             </div>
-            <p className="profile__info">Исследователь океана</p>
+            <p className="profile__info">{userDescription}</p>
             <button className="profile__add-button" type="button" onClick={onAddPlace}></button>
         </section>
 

@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 // import react and usestate (allows not to write React.useState)
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../index.css';
 import Header from './Header';
 import Main from './Main';
@@ -8,6 +8,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForms';
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/Api';
+import Card from './Card';
 
 
 
@@ -41,6 +42,32 @@ function App() {
     setIsEditAvatarPopupOpen(false);
   }
 
+
+  // оставь надежду всяк сюда АПИ
+
+  // тут  сбор данных юзера
+  const [userName, setUserName] = useState('')
+  const [userDescription, setUserDescription] = useState('')
+  const [userAvatar, setUserAvatar] = useState('')
+  // card data
+  const [cards, setCards] = useState([])
+
+  useEffect(() => {
+    Promise.all([api.getUserProfile(), api.getInitialCards()])
+      .then(([userData, cardData]) => {
+        setUserName(userData.name)
+        setUserDescription(userData.about)
+        setUserAvatar(userData.avatar)
+        setCards(cardData)
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
+  }, []);
+
+  console.log(cards)
+
+
+  // конец апимракобесия 
+
   return (
 
     <>
@@ -50,6 +77,9 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          userName={userName}
+          userDescription={userDescription}
+          userAvatar={userAvatar}
         >
           {/* сюда надо передать функции */}
 
@@ -132,22 +162,9 @@ function App() {
 
         </PopupWithForm>
 
-
-        {/* cartochki */}
-        <template className="template-card">
-          <div className="card">
-            <button type="button" className="card__trash"></button>
-            <img src="#" alt="загруженная картинка пользователя" className="card__image" />
-            <div className="card__heart-container">
-              <h2 className="card__title"></h2>
-              <div className="card__like-container">
-                <button className="card__heart" type="button"></button>
-                <span className="card__like-count"></span>
-              </div>
-            </div>
-          </div>
-        </template>
-
+        <Card
+          cards={cards}
+        ></Card>
 
       </div>
     </>

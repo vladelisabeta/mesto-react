@@ -67,7 +67,7 @@ function App() {
         </PopupWithForm>
 
 
-{/*  ПОПАП ОБНОВЛЕНИЯ АВАТАРА*/}
+        {/*  ПОПАП ОБНОВЛЕНИЯ АВАТАРА*/}
         <PopupWithForm
           title='Обновить аватар'
           name='upload-avatar'
