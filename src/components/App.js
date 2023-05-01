@@ -85,7 +85,7 @@ function App() {
 
 
         </Main>
-        <Footer />
+
         <ImagePopup />
         {/* ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ */}
         <PopupWithForm
@@ -165,7 +165,7 @@ function App() {
         <Card
           cards={cards}
         ></Card>
-
+        <Footer />
       </div>
     </>
   );
