@@ -8,8 +8,8 @@ function ImagePopup({ card, onClose }) {
         <div className={popupStatusClassName}>
             <div className="popup__image-opened">
                 <button type="button" className="popup__button-close popup__button-close_image" onClick={onClose}></button>
-                <span className="popup__image-text">{card? card.name : ''}</span>
-                <img className="popup__image" src={card? card.link : ''} alt={card? card.name : ''} />
+                <span className="popup__image-text">{card ? card.name : ''}</span>
+                <img className="popup__image" src={card ? card.link : ''} alt={card ? card.name : ''} />
             </div>
 
         </div>
@@ -18,33 +18,3 @@ function ImagePopup({ card, onClose }) {
 };
 
 export default ImagePopup;
-
-// ВОТ тут происходит что то очень странное, у меня не читают проперти оф нулл
-
-// return (
-//     <div className={popupStatusClassName}>
-//         <div className="popup__image-opened">
-//             <button type="button" className="popup__button-close popup__button-close_image" onClick={onClose}></button>
-//             <span className="popup__image-text">{card.name}</span>
-//             <img className="popup__image" src={card.link} alt={card.name} />
-//         </div>
-
-//     </div>
-// )
-
-
-
-// работающий код без подставлений из кард
-
-
-
-// return (
-//     <div className={popupStatusClassName}>
-//         <div className="popup__image-opened">
-//             <button type="button" className="popup__button-close popup__button-close_image" onClick={onClose}></button>
-//             <span className="popup__image-text"></span>
-//             <img className="popup__image" src="" alt="" />
-//         </div>
-
-//     </div>
-// )

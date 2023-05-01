@@ -6,11 +6,10 @@ function Card({ card, onCardClick }) {
         onCardClick(card);
     }
 
-    //  card.name итд это будет эффект от мапа (???????) ДА чертовы классы
     return (
         <div className="card">
             <button type="button" className="card__trash"></button>
-            <img src={card.link} alt={card.name} className="card__image" onClick={handleClick}/>
+            <img src={card.link} alt={card.name} className="card__image" onClick={handleClick} />
             <div className="card__heart-container">
                 <h2 className="card__title">{card.name}</h2>
                 <div className="card__like-container">

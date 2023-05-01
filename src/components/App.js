@@ -1,4 +1,4 @@
-// import logo from './logo.svg';
+
 // import react and usestate (allows not to write React.useState)
 import React, { useState, useEffect } from 'react';
 import '../index.css';
@@ -21,10 +21,6 @@ function App() {
   const handleCardClick = (card) => { setSelectedCard(card) }
 
 
-
-
-
-  //  где то здесь должны быть хуки за видимые состояния попапов. а потом они меняются (???????????)
   // хуки стейта
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
 
@@ -54,7 +50,7 @@ function App() {
   }
 
 
-  // оставь надежду всяк сюда АПИ
+  // АПИ
 
   // тут  сбор данных юзера
   const [userName, setUserName] = useState('')
@@ -74,12 +70,6 @@ function App() {
       .catch((error) => console.log(`Ошибка: ${error}`))
   }, []);
 
-  // console.log(cards)
-
-  // console.log(Card)
-  // // конец апимракобесия 
-
-  console.log(selectedCard)
 
   return (
 
@@ -98,7 +88,6 @@ function App() {
           onCardClick={handleCardClick}
         >
 
-
         </Main>
         {/* ИМАДЖ ПОПАП */}
 
@@ -108,8 +97,6 @@ function App() {
         >
 
         </ImagePopup>
-
-
 
 
         {/* ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ */}
