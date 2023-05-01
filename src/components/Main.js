@@ -8,7 +8,8 @@ function Main({ onEditProfile,
     userDescription,
     userAvatar,
     cards,
-    card
+    card,
+    onCardClick
 }) {
 
     return (<main className="content">
@@ -29,6 +30,7 @@ function Main({ onEditProfile,
                     <Card
                         card={card}
                         key={card._id}
+                        onCardClick={onCardClick}
                     >
 
                     </Card>

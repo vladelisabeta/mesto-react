@@ -18,6 +18,9 @@ function App() {
 
   const [selectedCard, setSelectedCard] = useState(null);
 
+  function handleCardClick(card) {
+    setSelectedCard(card)
+  }
 
 
 
@@ -47,6 +50,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard(null)
   }
 
 
@@ -70,10 +74,12 @@ function App() {
       .catch((error) => console.log(`Ошибка: ${error}`))
   }, []);
 
-  console.log(cards)
+  // console.log(cards)
 
-  console.log(Card)
-  // конец апимракобесия 
+  // console.log(Card)
+  // // конец апимракобесия 
+
+  console.log(selectedCard)
 
   return (
 
@@ -89,13 +95,24 @@ function App() {
           userAvatar={userAvatar}
           cards={cards}
           card={Card}
+          onCardClick={handleCardClick}
         >
-          {/* сюда надо передать функции */}
 
 
         </Main>
+        {/* ИМАДЖ ПОПАП */}
 
-        <ImagePopup />
+        <ImagePopup
+          card={selectedCard}
+          isOpen={selectedCard !== null}
+          onClose={closeAllPopups}
+        >
+
+        </ImagePopup>
+
+
+
+
         {/* ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ */}
         <PopupWithForm
           title='Редактировать профиль'
@@ -104,6 +121,7 @@ function App() {
           formName='about'
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          card={selectedCard}
         >
           <input
             type="text" name="name" id="name" className="popup__input popup__input_type_name" required minLength="2"
