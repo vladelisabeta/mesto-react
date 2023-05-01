@@ -18,9 +18,9 @@ function App() {
 
   const [selectedCard, setSelectedCard] = useState(null);
 
-  function handleCardClick(card) {
-    setSelectedCard(card)
-  }
+  const handleCardClick = (card) => { setSelectedCard(card) }
+
+
 
 
 
@@ -104,7 +104,6 @@ function App() {
 
         <ImagePopup
           card={selectedCard}
-          isOpen={selectedCard !== null}
           onClose={closeAllPopups}
         >
 
