@@ -1,45 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import Card from "./Card";
+import { api } from '../utils/Api';
 
 function Main({ onEditProfile,
     onAddPlace,
     onEditAvatar,
-    userName,
-    userDescription,
-    userAvatar,
-    cards,
-    card,
     onCardClick
 }) {
 
-    return (<main className="content">
-        <section className="profile">
-            <div className="profile__image-container" onClick={onEditAvatar}><img src={userAvatar} alt="Аватар профиля"
-                className="profile__avatar" /></div>
-            <div className="profile__edit-container">
-                <h1 className="profile__title">{userName}</h1>
-                <button className="profile__edit-button" type="button" onClick={onEditProfile}></button>
-            </div>
-            <p className="profile__info">{userDescription}</p>
-            <button className="profile__add-button" type="button" onClick={onAddPlace}></button>
-        </section>
+    // api here
 
-        <section className="place-grid">
-            {cards.map(card => {
-                return (
-                    <Card
-                        card={card}
-                        key={card._id}
-                        onCardClick={onCardClick}
-                    >
+    const [userName, setUserName] = useState('')
+    const [userDescription, setUserDescription] = useState('')
+    const [userAvatar, setUserAvatar] = useState('')
 
-                    </Card>
+    const [cards, setCards] = useState([])
 
-                )
-            })}
+    useEffect(() => {
+        Promise.all([api.getUserProfile(), api.getInitialCards()])
+            .then(([userData, cardData]) => {
+                setUserName(userData.name)
+                setUserDescription(userData.about)
+                setUserAvatar(userData.avatar)
+                setCards(cardData)
+            })
+            .catch((error) => console.log(`Ошибка: ${error}`))
+    }, []);
 
-        </section>
-    </main>
+
+
+    return (
+        <main className="content">
+            <section className="profile">
+                <div className="profile__image-container" onClick={onEditAvatar}><img src={userAvatar} alt="Аватар профиля"
+                    className="profile__avatar" /></div>
+                <div className="profile__edit-container">
+                    <h1 className="profile__title">{userName}</h1>
+                    <button className="profile__edit-button" type="button" onClick={onEditProfile}></button>
+                </div>
+                <p className="profile__info">{userDescription}</p>
+                <button className="profile__add-button" type="button" onClick={onAddPlace}></button>
+            </section>
+
+            <section className="place-grid">
+                {cards.map(card => {
+                    return (
+                        <Card
+                            card={card}
+                            key={card._id}
+                            onCardClick={onCardClick}
+                        >
+
+                        </Card>
+
+                    )
+                })}
+
+            </section>
+        </main>
     )
 };
 

@@ -6,8 +6,8 @@ function PopupWithForm({
     formName,
     buttonText,
     children,
-    uploadAvatarClass,
-    buttonCloseAvatar,
+    popupContent,
+    buttonClose,
     isOpen,
     onClose,
 }) {
@@ -19,11 +19,11 @@ function PopupWithForm({
     return (
         <div className={popupStatusClassName}>
             <div className="popup__box">
-                <button className={`popup__button-close ${buttonCloseAvatar}`} type="button" onClick={onClose}></button>
-                <div className={`popup__container ${uploadAvatarClass}`}>
+                <button className={`popup__button-close ${buttonClose}`} type="button" onClick={onClose} />
+                <div className={`popup__container ${popupContent}`}>
                     <h3 className="popup__text">{title}</h3>
-                    {/* FORM HERE */}
-                    <form className="popup__form" name={`${formName}`} noValidate>
+                    {/* FORM HERE здесь был noValidate*/}
+                    <form className="popup__form" name={`${formName}`}>
                         {children}
                         <button className="popup__save" type="submit">{buttonText}</button>
                     </form>
