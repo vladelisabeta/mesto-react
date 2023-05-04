@@ -1,44 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import Card from "./Card";
 import { api } from '../utils/Api';
+import { currentUserContext } from '../contexts/CurrentUserContext';
 
 function Main({ onEditProfile,
     onAddPlace,
     onEditAvatar,
-    onCardClick
+    onCardClick,
+    onCardLike,
+    onCardDelete,
+    cards
 }) {
 
+    // контекст 
+    const currentUser = React.useContext(currentUserContext)
     // api here
 
-    const [userName, setUserName] = useState('')
-    const [userDescription, setUserDescription] = useState('')
-    const [userAvatar, setUserAvatar] = useState('')
-
-    const [cards, setCards] = useState([])
-
-    useEffect(() => {
-        Promise.all([api.getUserProfile(), api.getInitialCards()])
-            .then(([userData, cardData]) => {
-                setUserName(userData.name)
-                setUserDescription(userData.about)
-                setUserAvatar(userData.avatar)
-                setCards(cardData)
-            })
-            .catch((error) => console.log(`Ошибка: ${error}`))
-    }, []);
 
 
 
     return (
         <main className="content">
             <section className="profile">
-                <div className="profile__image-container" onClick={onEditAvatar}><img src={userAvatar} alt="Аватар профиля"
+                <div className="profile__image-container" onClick={onEditAvatar}><img src={currentUser.avatar} alt="Аватар профиля"
                     className="profile__avatar" /></div>
                 <div className="profile__edit-container">
-                    <h1 className="profile__title">{userName}</h1>
+                    <h1 className="profile__title">{currentUser.name}</h1>
                     <button className="profile__edit-button" type="button" onClick={onEditProfile}></button>
                 </div>
-                <p className="profile__info">{userDescription}</p>
+                <p className="profile__info">{currentUser.about}</p>
                 <button className="profile__add-button" type="button" onClick={onAddPlace}></button>
             </section>
 
@@ -49,6 +39,8 @@ function Main({ onEditProfile,
                             card={card}
                             key={card._id}
                             onCardClick={onCardClick}
+                            onCardLike={onCardLike}
+                            onCardDelete={onCardDelete}
                         >
 
                         </Card>
@@ -61,4 +53,37 @@ function Main({ onEditProfile,
     )
 };
 
-export default Main; 
+export default Main;
+
+
+
+
+// const [userName, setUserName] = useState('')
+// const [userDescription, setUserDescription] = useState('')
+// const [userAvatar, setUserAvatar] = useState('')
+
+// const [cards, setCards] = useState([])
+
+// useEffect(() => {
+//     Promise.all([api.getUserProfile(), api.getInitialCards()])
+//         .then(([userData, cardData]) => {
+//             setUserName(userData.name)
+//             setUserDescription(userData.about)
+//             setUserAvatar(userData.avatar)
+//             setCards(cardData)
+//         })
+//         .catch((error) => console.log(`Ошибка: ${error}`))
+// }, []);
+
+// юзлес код ^^^
+
+// апи для карточек
+
+// const [cards, setCards] = useState([])
+// useEffect(() => {
+//     Promise.all([api.getInitialCards()])
+//         .then(([cardData]) => {
+//             setCards(cardData)
+//         })
+//         .catch((error) => console.log(`Ошибка: ${error}`))
+// }, []);
