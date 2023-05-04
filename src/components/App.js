@@ -55,11 +55,13 @@ function App() {
   }
 
   function handleUpdateUser(userData) {
-    api.getUserProfile(userData)
-    .then((newUserData) => {
-      setCurrentUser(newUserData)
-      closeAllPopups();
-    })
+    api.editProfile(userData)
+      .then((newUserData) => {
+        setCurrentUser(newUserData)
+        closeAllPopups();
+
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
   }
 
   // function handleCardDelete(card) {
