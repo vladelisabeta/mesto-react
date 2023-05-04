@@ -49,11 +49,17 @@ function App() {
 
 
   function handleCardDelete(card) {
-    // const isLiked = card.likes.some(i => i._id === currentUser._id);
-    // вот тут я не понимаю. этот медот же должен быть в апи?
     api.deleteCard(card._id).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      setCards((state) => state.filter((c) => c._id !== card._id));
     });
+  }
+
+  function handleUpdateUser(userData) {
+    api.getUserProfile(userData)
+    .then((newUserData) => {
+      setCurrentUser(newUserData)
+      closeAllPopups();
+    })
   }
 
   // function handleCardDelete(card) {
@@ -129,7 +135,8 @@ function App() {
         {/* ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ */}
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups} />
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser} />
 
 
         {/* <PopupWithForm
