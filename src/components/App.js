@@ -10,6 +10,8 @@ import ImagePopup from './ImagePopup';
 import { currentUserContext } from '../contexts/CurrentUserContext';
 import { api } from '../utils/Api';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 
 
@@ -41,7 +43,7 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    // вот тут я не понимаю. этот медот же должен быть в апи?
+
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     });
@@ -64,14 +66,26 @@ function App() {
       .catch((error) => console.log(`Ошибка: ${error}`))
   }
 
-  // function handleCardDelete(card) {
-  //   const isLiked = card.likes.some(i => i._id === currentUser._id);
-  //   // вот тут я не понимаю. этот медот же должен быть в апи?
-  //   api.deleteCard(card._id, !isLiked).then((newCard) => {
-  //     setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-  //   });
-  // }
+  // функция апдейта аватара
 
+  function handleUpdateAvatar(avatarData) {
+    api.updateAvatar(avatarData)
+      .then((newAvatar) => {
+        setCurrentUser(newAvatar)
+        closeAllPopups()
+      })
+  }
+
+  //  ФУНКЦИЯ ДОБАВЛЕНИЯ КАРТОЧКИ 
+
+  function handleAddPlaceSubmit(cardData) {
+    api.addCardToServer(cardData)
+      .then((newCard) => {
+        setCards([newCard, ...cards])
+        closeAllPopups()
+      })
+
+  }
 
   // здесь опен попап кард
 
@@ -141,49 +155,12 @@ function App() {
           onUpdateUser={handleUpdateUser} />
 
 
-        {/* <PopupWithForm
-          title='Редактировать профиль'
-          name='popup_edit'
-          buttonText='Сохранить'
-          formName='about'
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          card={selectedCard}
-        >
-          <input
-            type="text" name="name" id="name" className="popup__input popup__input_type_name" required minLength="2"
-            maxLength="40" placeholder="Имя"
-          />
-
-          <span className="popup__error" id="name-error">
-          </span>
-
-          <input type="text" name="info" id="info" className="popup__input popup__input_type_info" required minLength="2"
-            maxLength="200" placeholder="Вид деятельности" />
-          <span className="popup__error" id="info-error">
-          </span>
-
-        </PopupWithForm> */}
-
-        {/* ПОПАП КАРТОЧКИ */}
-        <PopupWithForm
-          name='popup_cards'
-          title='Новое место'
-          buttonText='Создать'
-          formName='cards'
+        {/* ПОПАП ADD КАРТОЧКИ */}
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input type="text" name="place" id="place" className="popup__input popup__input_type-place"
-            placeholder="Название" required minLength="2" maxLength="30" />
-          <span className="popup__error" id="place-error">
-          </span>
-          <input type="url" name="link" id="link" className="popup__input popup__input_type-link"
-            placeholder="Ссылка на картинку" required />
-          <span className="popup__error" id="link-error">
-          </span>
-
-        </PopupWithForm>
+          onAddPlace={handleAddPlaceSubmit}
+        />
 
 
         {/* ПОПАП ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ */}
@@ -199,22 +176,12 @@ function App() {
 
 
         {/*  ПОПАП ОБНОВЛЕНИЯ АВАТАРА*/}
-        <PopupWithForm
-          title='Обновить аватар'
-          name='popup_upload-avatar'
-          formName='upload'
-          buttonText='Сохранить'
-          popupContent='popup__container_upload-avatar'
-          buttonClose='popup__button-close_upload-avatar'
+
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-        >
-          <input type="url" name="avatar" id="avatar" className="popup__input popup__input_type-link"
-            placeholder="Ссылка на картинку" required />
-          <span className="popup__error" id="avatar-error"></span>
-
-
-        </PopupWithForm>
+          onUpdateAvatar={handleUpdateAvatar}
+        />
 
         <Footer />
       </div>

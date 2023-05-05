@@ -35,7 +35,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.info
+        about: data.about
       })
     })
       .then(res => this._checkResponse(res))
@@ -47,7 +47,7 @@ class Api {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: data.place,
+        name: data.name,
         link: data.link,
         likes: data.likes,
         _id: data._id
