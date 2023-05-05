@@ -19,6 +19,26 @@ function App() {
   // тут я пишу код
   const [currentUser, setCurrentUser] = useState('')
 
+  const [cards, setCards] = useState([])
+
+
+  // здесь опен попап кард
+
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const handleCardClick = (card) => { setSelectedCard(card) }
+
+
+  // хуки стейта
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+
+
+
   useEffect(() => {
     Promise.all([api.getUserProfile()])
       .then(([userData]) => {
@@ -28,7 +48,6 @@ function App() {
   }, []);
 
 
-  const [cards, setCards] = useState([])
 
   useEffect(() => {
     Promise.all([api.getInitialCards()])
@@ -44,16 +63,19 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
   }
 
 
   function handleCardDelete(card) {
     api.deleteCard(card._id).then((newCard) => {
       setCards((state) => state.filter((c) => c._id !== card._id));
-    });
+    })
+      .catch((error) => console.log(`Ошибка: ${error}`))
   }
 
   function handleUpdateUser(userData) {
@@ -74,6 +96,7 @@ function App() {
         setCurrentUser(newAvatar)
         closeAllPopups()
       })
+      .catch((error) => console.log(`Ошибка: ${error}`))
   }
 
   //  ФУНКЦИЯ ДОБАВЛЕНИЯ КАРТОЧКИ 
@@ -84,22 +107,9 @@ function App() {
         setCards([newCard, ...cards])
         closeAllPopups()
       })
+      .catch((error) => console.log(`Ошибка: ${error}`))
 
   }
-
-  // здесь опен попап кард
-
-  const [selectedCard, setSelectedCard] = useState(null);
-
-  const handleCardClick = (card) => { setSelectedCard(card) }
-
-
-  // хуки стейта
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
 
   function handleEditProfileClick() {
